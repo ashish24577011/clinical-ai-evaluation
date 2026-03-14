@@ -1,64 +1,81 @@
 import json
 import sys
-from rules import *
+from collections import defaultdict
 
-def evaluate(entities):
+ENTITY_TYPES = [
+    "MEDICINE","PROBLEM","PROCEDURE","TEST","VITAL_NAME",
+    "IMMUNIZATION","MEDICAL_DEVICE","MENTAL_STATUS","SDOH","SOCIAL_HISTORY"
+]
 
-    total = len(entities)
+ASSERTIONS = ["POSITIVE","NEGATIVE","UNCERTAIN"]
+TEMPORALITY = ["CURRENT","CLINICAL_HISTORY","UPCOMING","UNCERTAIN"]
+SUBJECTS = ["PATIENT","FAMILY_MEMBER"]
 
-    entity_errors = 0
-    assertion_errors = 0
-    temporality_errors = 0
-    subject_errors = 0
-    completeness_errors = 0
 
-    for e in entities:
+def evaluate(data):
 
-        text = e.get("text","").lower()
+    entity_counts = defaultdict(int)
+    entity_errors = defaultdict(int)
+
+    assertion_counts = defaultdict(int)
+    assertion_errors = defaultdict(int)
+
+    temporality_counts = defaultdict(int)
+    temporality_errors = defaultdict(int)
+
+    subject_counts = defaultdict(int)
+    subject_errors = defaultdict(int)
+
+    total_entities = len(data)
+
+    missing_attr = 0
+    event_date_correct = 0
+    event_date_total = 0
+
+    for e in data:
+
+        etype = e.get("entity_type")
         assertion = e.get("assertion")
         temporality = e.get("temporality")
         subject = e.get("subject")
-        entity_type = e.get("entity_type")
 
-        # Assertion error detection
-        for neg in NEGATIONS:
-            if neg in text and assertion == "POSITIVE":
-                assertion_errors += 1
+        if etype in ENTITY_TYPES:
+            entity_counts[etype] += 1
+        else:
+            entity_errors[etype] += 1
 
-        # Temporality error detection
-        for h in HISTORY_WORDS:
-            if h in text and temporality == "CURRENT":
-                temporality_errors += 1
+        if assertion in ASSERTIONS:
+            assertion_counts[assertion] += 1
+        else:
+            assertion_errors[assertion] += 1
 
-        # Subject attribution errors
-        for f in FAMILY_WORDS:
-            if f in text and subject == "PATIENT":
-                subject_errors += 1
+        if temporality in TEMPORALITY:
+            temporality_counts[temporality] += 1
+        else:
+            temporality_errors[temporality] += 1
 
-        # Example entity type error rule
-        if "deceased" in text and entity_type == "PROCEDURE":
-            entity_errors += 1
+        if subject in SUBJECTS:
+            subject_counts[subject] += 1
+        else:
+            subject_errors[subject] += 1
 
-        # Attribute completeness check
-        if None in [assertion, temporality, subject, entity_type]:
-            completeness_errors += 1
+        if "event_date" in e:
+            event_date_total += 1
+            if e["event_date"]:
+                event_date_correct += 1
 
-    # Overall reliability score
-    reliability_score = 1 - (
-        entity_errors +
-        assertion_errors +
-        temporality_errors +
-        subject_errors
-    ) / (4 * total)
+        if None in [etype, assertion, temporality, subject]:
+            missing_attr += 1
 
-    return {
-        "entity_type_error_rate": entity_errors/total,
-        "assertion_error_rate": assertion_errors/total,
-        "temporality_error_rate": temporality_errors/total,
-        "subject_error_rate": subject_errors/total,
-        "attribute_completeness": 1 - completeness_errors/total,
-        "reliability_score": reliability_score
-    }
+    entity_rate = {k: entity_errors[k]/entity_counts[k] if entity_counts[k] else 0 for k in ENTITY_TYPES}
+    assertion_rate = {k: assertion_errors[k]/assertion_counts[k] if assertion_counts[k] else 0 for k in ASSERTIONS}
+    temporality_rate = {k: temporality_errors[k]/temporality_counts[k] if temporality_counts[k] else 0 for k in TEMPORALITY}
+    subject_rate = {k: subject_errors[k]/subject_counts[k] if subject_counts[k] else 0 for k in SUBJECTS}
+
+    event_date_accuracy = event_date_correct/event_date_total if event_date_total else 0
+    attribute_completeness = 1 - (missing_attr/total_entities if total_entities else 0)
+
+    return entity_rate, assertion_rate, temporality_rate, subject_rate, event_date_accuracy, attribute_completeness
 
 
 def main():
@@ -69,11 +86,16 @@ def main():
     with open(input_file) as f:
         data = json.load(f)
 
-    results = evaluate(data)
+    entity_rate, assertion_rate, temporality_rate, subject_rate, event_date_accuracy, attribute_completeness = evaluate(data)
 
     output = {
         "file_name": input_file.split("/")[-1],
-        **results
+        "entity_type_error_rate": entity_rate,
+        "assertion_error_rate": assertion_rate,
+        "temporality_error_rate": temporality_rate,
+        "subject_error_rate": subject_rate,
+        "event_date_accuracy": event_date_accuracy,
+        "attribute_completeness": attribute_completeness
     }
 
     with open(output_file,"w") as f:
