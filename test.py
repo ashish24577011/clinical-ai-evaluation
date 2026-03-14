@@ -26,6 +26,9 @@ def evaluate(data):
     subject_counts = defaultdict(int)
     subject_errors = defaultdict(int)
 
+    seen_entities = set()
+    duplicate_count = 0
+
     total_entities = len(data)
 
     missing_attr = 0
@@ -33,6 +36,13 @@ def evaluate(data):
     event_date_total = 0
 
     for e in data:
+
+        text = e.get("text","")
+
+        if text in seen_entities:
+            duplicate_count += 1
+        else:
+            seen_entities.add(text)
 
         etype = e.get("entity_type")
         assertion = e.get("assertion")
@@ -67,15 +77,59 @@ def evaluate(data):
         if None in [etype, assertion, temporality, subject]:
             missing_attr += 1
 
-    entity_rate = {k: entity_errors[k]/entity_counts[k] if entity_counts[k] else 0 for k in ENTITY_TYPES}
-    assertion_rate = {k: assertion_errors[k]/assertion_counts[k] if assertion_counts[k] else 0 for k in ASSERTIONS}
-    temporality_rate = {k: temporality_errors[k]/temporality_counts[k] if temporality_counts[k] else 0 for k in TEMPORALITY}
-    subject_rate = {k: subject_errors[k]/subject_counts[k] if subject_counts[k] else 0 for k in SUBJECTS}
 
-    event_date_accuracy = event_date_correct/event_date_total if event_date_total else 0
-    attribute_completeness = 1 - (missing_attr/total_entities if total_entities else 0)
+    entity_rate = {
+        k: entity_errors[k]/entity_counts[k] if entity_counts[k] else 0
+        for k in ENTITY_TYPES
+    }
 
-    return entity_rate, assertion_rate, temporality_rate, subject_rate, event_date_accuracy, attribute_completeness
+    assertion_rate = {
+        k: assertion_errors[k]/assertion_counts[k] if assertion_counts[k] else 0
+        for k in ASSERTIONS
+    }
+
+    temporality_rate = {
+        k: temporality_errors[k]/temporality_counts[k] if temporality_counts[k] else 0
+        for k in TEMPORALITY
+    }
+
+    subject_rate = {
+        k: subject_errors[k]/subject_counts[k] if subject_counts[k] else 0
+        for k in SUBJECTS
+    }
+
+    event_date_accuracy = (
+        event_date_correct/event_date_total if event_date_total else 0
+    )
+
+    attribute_completeness = (
+        1 - missing_attr/total_entities if total_entities else 0
+    )
+
+    duplicate_rate = (
+        duplicate_count/total_entities if total_entities else 0
+    )
+
+    reliability_score = (
+        event_date_accuracy +
+        attribute_completeness +
+        (1 - sum(entity_rate.values())/len(entity_rate)) +
+        (1 - sum(assertion_rate.values())/len(assertion_rate)) +
+        (1 - sum(temporality_rate.values())/len(temporality_rate)) +
+        (1 - sum(subject_rate.values())/len(subject_rate))
+    ) / 6
+
+
+    return (
+        entity_rate,
+        assertion_rate,
+        temporality_rate,
+        subject_rate,
+        event_date_accuracy,
+        attribute_completeness,
+        duplicate_rate,
+        reliability_score
+    )
 
 
 def main():
@@ -86,16 +140,30 @@ def main():
     with open(input_file) as f:
         data = json.load(f)
 
-    entity_rate, assertion_rate, temporality_rate, subject_rate, event_date_accuracy, attribute_completeness = evaluate(data)
+    (
+        entity_rate,
+        assertion_rate,
+        temporality_rate,
+        subject_rate,
+        event_date_accuracy,
+        attribute_completeness,
+        duplicate_rate,
+        reliability_score
+    ) = evaluate(data)
 
     output = {
         "file_name": input_file.split("/")[-1],
+
         "entity_type_error_rate": entity_rate,
         "assertion_error_rate": assertion_rate,
         "temporality_error_rate": temporality_rate,
         "subject_error_rate": subject_rate,
+
         "event_date_accuracy": event_date_accuracy,
-        "attribute_completeness": attribute_completeness
+        "attribute_completeness": attribute_completeness,
+
+        "duplicate_entity_rate": duplicate_rate,
+        "reliability_score": reliability_score
     }
 
     with open(output_file,"w") as f:

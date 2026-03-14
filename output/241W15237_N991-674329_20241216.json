@@ -28,5 +28,7 @@
     "FAMILY_MEMBER": 0.0
   },
   "event_date_accuracy": 0,
-  "attribute_completeness": 0.998533724340176
+  "attribute_completeness": 0.998533724340176,
+  "duplicate_entity_rate": 0.7521994134897361,
+  "reliability_score": 0.8330889540566959
 }
