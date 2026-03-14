@@ -1,0 +1,9 @@
+{
+  "file_name": "104W15947_J727-290663_20241213.json",
+  "entity_type_error_rate": 0.00392156862745098,
+  "assertion_error_rate": 0.6872549019607843,
+  "temporality_error_rate": 0.22745098039215686,
+  "subject_error_rate": 0.11274509803921569,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.7421568627450981
+}

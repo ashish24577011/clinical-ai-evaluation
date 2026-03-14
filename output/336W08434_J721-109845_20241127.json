@@ -1,0 +1,9 @@
+{
+  "file_name": "336W08434_J721-109845_20241127.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.808695652173913,
+  "temporality_error_rate": 0.043478260869565216,
+  "subject_error_rate": 0.0391304347826087,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.7771739130434783
+}

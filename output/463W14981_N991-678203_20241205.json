@@ -1,0 +1,9 @@
+{
+  "file_name": "463W14981_N991-678203_20241205.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.967032967032967,
+  "temporality_error_rate": 0.21611721611721613,
+  "subject_error_rate": 0.0989010989010989,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.6794871794871795
+}

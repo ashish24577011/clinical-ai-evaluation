@@ -1,0 +1,9 @@
+{
+  "file_name": "279W08692_N993-538576_20241223.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.4485645933014354,
+  "temporality_error_rate": 0.050239234449760764,
+  "subject_error_rate": 0.005980861244019139,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.8738038277511961
+}

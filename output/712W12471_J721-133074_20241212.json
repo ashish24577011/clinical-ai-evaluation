@@ -1,0 +1,9 @@
+{
+  "file_name": "712W12471_J721-133074_20241212.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.6857142857142857,
+  "temporality_error_rate": 0.1492063492063492,
+  "subject_error_rate": 0.17777777777777778,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.7468253968253968
+}

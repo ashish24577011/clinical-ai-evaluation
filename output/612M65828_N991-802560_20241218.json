@@ -1,0 +1,9 @@
+{
+  "file_name": "612M65828_N991-802560_20241218.json",
+  "entity_type_error_rate": 0.010854816824966078,
+  "assertion_error_rate": 1.191316146540027,
+  "temporality_error_rate": 0.2564450474898236,
+  "subject_error_rate": 0.013568521031207599,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.6319538670284939
+}

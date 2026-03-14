@@ -1,0 +1,9 @@
+{
+  "file_name": "105W05861_J614-495637_20241217.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.4435483870967742,
+  "temporality_error_rate": 0.11290322580645161,
+  "subject_error_rate": 0.016129032258064516,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.8568548387096774
+}

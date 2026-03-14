@@ -1,0 +1,9 @@
+{
+  "file_name": "437M97350_J721-176825_20241211.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.8329297820823245,
+  "temporality_error_rate": 0.1234866828087167,
+  "subject_error_rate": 0.0387409200968523,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.7512106537530266
+}

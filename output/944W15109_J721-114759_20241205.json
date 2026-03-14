@@ -1,0 +1,9 @@
+{
+  "file_name": "944W15109_J721-114759_20241205.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 1.0086580086580086,
+  "temporality_error_rate": 0.2727272727272727,
+  "subject_error_rate": 0.23809523809523808,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.6201298701298701
+}

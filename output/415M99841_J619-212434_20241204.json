@@ -1,0 +1,9 @@
+{
+  "file_name": "415M99841_J619-212434_20241204.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.661608497723824,
+  "temporality_error_rate": 0.10773899848254932,
+  "subject_error_rate": 0.08042488619119878,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.787556904400607
+}

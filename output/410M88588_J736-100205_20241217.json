@@ -1,0 +1,9 @@
+{
+  "file_name": "410M88588_J736-100205_20241217.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.4379310344827586,
+  "temporality_error_rate": 0.04827586206896552,
+  "subject_error_rate": 0.010344827586206896,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.8758620689655172
+}

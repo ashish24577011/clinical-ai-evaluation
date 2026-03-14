@@ -1,0 +1,9 @@
+{
+  "file_name": "943W19621_J727-317855_20241217.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.627906976744186,
+  "temporality_error_rate": 0.0,
+  "subject_error_rate": 0.0,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.8430232558139534
+}

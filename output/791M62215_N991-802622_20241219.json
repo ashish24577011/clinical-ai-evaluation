@@ -1,0 +1,9 @@
+{
+  "file_name": "791M62215_N991-802622_20241219.json",
+  "entity_type_error_rate": 0.004552352048558422,
+  "assertion_error_rate": 0.7223065250379362,
+  "temporality_error_rate": 0.30804248861911987,
+  "subject_error_rate": 0.21851289833080426,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.6866464339908953
+}

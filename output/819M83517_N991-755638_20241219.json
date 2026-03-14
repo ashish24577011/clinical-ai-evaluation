@@ -1,0 +1,9 @@
+{
+  "file_name": "819M83517_N991-755638_20241219.json",
+  "entity_type_error_rate": 0.0016474464579901153,
+  "assertion_error_rate": 0.7924217462932455,
+  "temporality_error_rate": 0.22075782537067545,
+  "subject_error_rate": 0.006589785831960461,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.744645799011532
+}

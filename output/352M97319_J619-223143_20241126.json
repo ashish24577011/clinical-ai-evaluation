@@ -1,0 +1,9 @@
+{
+  "file_name": "352M97319_J619-223143_20241126.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.4782016348773842,
+  "temporality_error_rate": 0.06267029972752043,
+  "subject_error_rate": 0.0027247956403269754,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.8641008174386922
+}

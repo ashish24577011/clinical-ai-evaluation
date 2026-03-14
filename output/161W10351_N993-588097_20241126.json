@@ -1,0 +1,9 @@
+{
+  "file_name": "161W10351_N993-588097_20241126.json",
+  "entity_type_error_rate": 0.0,
+  "assertion_error_rate": 0.5258426966292135,
+  "temporality_error_rate": 0.030337078651685393,
+  "subject_error_rate": 0.008988764044943821,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.8587078651685394
+}

@@ -1,0 +1,9 @@
+{
+  "file_name": "786W17536_J730-120682_20241219.json",
+  "entity_type_error_rate": 0.005509641873278237,
+  "assertion_error_rate": 1.1763085399449036,
+  "temporality_error_rate": 0.2809917355371901,
+  "subject_error_rate": 0.046831955922865015,
+  "attribute_completeness": 1.0,
+  "reliability_score": 0.6225895316804408
+}
